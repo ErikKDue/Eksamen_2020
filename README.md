@@ -1,6 +1,12 @@
 # Eksamen_2020
 KEA DAT19D group 6 2nd semester project
 
+Branch description
+ - MASTER
+ Everything here must be working properly.
+ 
+ - DEV
+ Work in progress.
 
 Rules and best practices:
  - Break it Fix it
