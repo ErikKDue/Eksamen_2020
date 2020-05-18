@@ -18,4 +18,12 @@ Rules and best practices:
  - use new branches frequently
  - No large submissions unless team members have been informed
  - All functions/methods must have a test before submitting; test must pass
+ 
+ Tech Stack
+- Spring MVC
+- Tomcat
+- Thymeleaf
+- Hibernate(Måske)
+- Mysql
+
 
