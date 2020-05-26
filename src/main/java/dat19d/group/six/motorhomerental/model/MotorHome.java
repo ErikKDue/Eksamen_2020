@@ -13,7 +13,7 @@ public class MotorHome implements IStoreable{
         CLEANING,
         RENTED
     }
-    VehicleStatus status;
+    VehicleStatus status; //status er sgudda ikke noget der skal forekomme separat fra en dato. Måske nærmere en hashmap med dato og tilhørende  status?
 
  public MotorHome(String registrationNumber, String brand, String Model, int capacity, double basePrice){
      this.registrationNumber = registrationNumber;

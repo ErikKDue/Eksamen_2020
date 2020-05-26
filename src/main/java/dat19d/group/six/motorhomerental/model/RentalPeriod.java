@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class RentalPeriod implements IStoreable{
+    int ID;
     Customer customer;
     MotorHome motorHome;
     int pickupPointDistance; //we'd need Google Maps integration and A* or Dijkstra or some other pathfinding algorithm to figure this out automatically. Just have the user enter it manually for now.
