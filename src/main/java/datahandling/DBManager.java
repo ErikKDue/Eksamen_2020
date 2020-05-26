@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.SQLSyntaxErrorException;
 import java.util.Properties;
 
 public class DBManager {
@@ -22,7 +23,7 @@ public class DBManager {
         try (InputStream input = new FileInputStream("src/main/resources/application.properties")) {
             Properties properties = new Properties();
             properties.load(input);
-            url = properties.getProperty("url");
+            url = properties.getProperty("url")+properties.getProperty("dbname");
             user = properties.getProperty("user");
             password = properties.getProperty("password");
         } catch (IOException ex) {
@@ -30,9 +31,39 @@ public class DBManager {
         }
         try {
             connection = DriverManager.getConnection(url,user, password);
-        } catch (SQLException e) {
-            e.printStackTrace();
+        }  catch (SQLSyntaxErrorException e) {
+            System.out.println(e.getErrorCode());
+            DBInstantiator.createSchema();
+            //return getConnection();
+        }  catch (SQLException e) {
+                e.printStackTrace();
         }
         return connection;
+    }
+
+    public static Connection getBasicConnection(){
+        // Connection connection = null;
+        //if (connection != null) return connection;
+        //try (InputStream input = new FileInputStream("src/main/resources/db.properties")) {
+        try (InputStream input = new FileInputStream("src/main/resources/application.properties")) {
+            Properties properties = new Properties();
+            properties.load(input);
+            url = properties.getProperty("url");
+            user = properties.getProperty("user");
+            password = properties.getProperty("password");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        try {
+            return DriverManager.getConnection(url,user, password);
+        }  catch (SQLSyntaxErrorException e) {
+            System.out.println(e.getErrorCode());
+            e.printStackTrace();
+            DBInstantiator.createSchema();
+            //return getConnection();
+        }  catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

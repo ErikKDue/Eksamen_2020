@@ -7,6 +7,26 @@ Branch description
  
  - DEV
  Works in progress.
+ 
+ ##DB Setup
+ - Kræver MySQL-installation
+ - application.properties skal se sådan her ud.
+ ---
+user= (dbuser)<br>
+password= (dbpassword)<br>
+url= (db-url, normalt \jdbc:mysql://localhost:3306/)<br>
+dbname=nordicmotorhome_g6?serverTimezone=UTC<br>
+---
+ - Run DBManagerTests, 
+ - successful output: 
+ ---
+   Trying to create schema.<br>
+   Schema created.<br>
+   unavailability created.<br>
+   motor_home created.<br>
+   Customer created<br>
+   rental period created<br>
+   ---
 
 Rules and best practices:
  - You Break It, You Fix It
