@@ -1,4 +1,4 @@
-package model;
+package dat19d.group.six.motorhomerental.model;
 
 public class MotorHome implements IStoreable{
     String registrationNumber;

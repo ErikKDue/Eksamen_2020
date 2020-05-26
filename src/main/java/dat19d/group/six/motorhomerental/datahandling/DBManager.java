@@ -1,4 +1,4 @@
-package datahandling;
+package dat19d.group.six.motorhomerental.datahandling;
 
 
 import java.io.FileInputStream;
