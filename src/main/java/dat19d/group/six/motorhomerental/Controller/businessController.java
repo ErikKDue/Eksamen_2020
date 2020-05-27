@@ -26,17 +26,4 @@ public class businessController {
         return "returner";
     }
 
-    @GetMapping("/login")
-    public String login()
-    {
-        return "login";
-    }
-
-    @GetMapping("/opret")
-    public String opret()
-    {
-        return "opret";
-    }
-
-
 }
