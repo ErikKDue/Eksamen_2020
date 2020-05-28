@@ -26,4 +26,10 @@ public class businessController {
         return "returner";
     }
 
+    @GetMapping("/opret")
+    public String opret()
+    {
+        return "opret";
+    }
+
 }
