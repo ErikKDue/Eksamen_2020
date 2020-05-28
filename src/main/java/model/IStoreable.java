@@ -2,10 +2,5 @@ package model;
 
 public interface IStoreable {
 
-    /*
-    * convertToSQL()?
-    *
-    * convertFromSQL()?
-    *
-    * */
+   String getType();
 }

@@ -1,16 +1,30 @@
 package model;
 
+import annotations.StoreableAttribute;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class RentalPeriod implements IStoreable{
+    @StoreableAttribute
     int ID;
+    @StoreableAttribute
+    int customerID;
     Customer customer;
+    @StoreableAttribute
+    String registrationNumber;
     MotorHome motorHome;
+    @StoreableAttribute
+    LocalDate startDate;
+    @StoreableAttribute
+    LocalDate endDate;
+
     int pickupPointDistance; //we'd need Google Maps integration and A* or Dijkstra or some other pathfinding algorithm to figure this out automatically. Just have the user enter it manually for now.
+
     int dropoffPointDistance;
+
     double totalExpectedPrice;
 
     int maxKMBeforeSurcharge; //is 400 * rentalPeriod.Length
@@ -18,10 +32,30 @@ public class RentalPeriod implements IStoreable{
     ArrayList<Object> Extras; //probably needs an extras enum or class with prices
 
     public RentalPeriod(Customer customer, MotorHome motorHome, int pickupPointDistance, int dropoffPointDistance, @org.jetbrains.annotations.NotNull LocalDate startDate, LocalDate endDate){
+        this.startDate = startDate;
+        this.endDate = endDate;
         this.dateList = startDate.datesUntil(endDate).collect(Collectors.toList());
         this.dateList.add(endDate);
         this.customer = customer;
+        this.customerID = customer.customerID;
         this.motorHome = motorHome;
+        this.registrationNumber = motorHome.registrationNumber;
+        this.pickupPointDistance = pickupPointDistance;
+        this.dropoffPointDistance = dropoffPointDistance;
+        this.maxKMBeforeSurcharge = dateList.size()*400;
+        this.totalExpectedPrice = this.calculateExpectedPrice();
+    }
+
+    public RentalPeriod(int ID, Customer customer, MotorHome motorHome, int pickupPointDistance, int dropoffPointDistance, @org.jetbrains.annotations.NotNull LocalDate startDate, LocalDate endDate){
+        this.ID = ID;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.dateList = startDate.datesUntil(endDate).collect(Collectors.toList());
+        this.dateList.add(endDate);
+        this.customer = customer;
+        this.customerID = customer.customerID;
+        this.motorHome = motorHome;
+        this.registrationNumber = motorHome.registrationNumber;
         this.pickupPointDistance = pickupPointDistance;
         this.dropoffPointDistance = dropoffPointDistance;
         this.maxKMBeforeSurcharge = dateList.size()*400;
@@ -84,5 +118,9 @@ public class RentalPeriod implements IStoreable{
         //if tankEmpty, returnValue+= 70
         //returnValue += repairCost;
         return 0;
+    }
+    @Override //returns the name of the SQL TABLE
+    public String getType() {
+        return "rental_period";
     }
 }

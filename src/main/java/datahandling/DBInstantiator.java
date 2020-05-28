@@ -17,37 +17,39 @@ public class DBInstantiator {
                 "  `status_id` int NOT NULL,\n" +
                 "  PRIMARY KEY (`date`,`motor_home_id`)\n" +
                 ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;\n", "unavailability created."));
+
         System.out.println(createTables(DBManager.getConnection(), "CREATE TABLE IF NOT EXISTS `motor_home` (\n" +
-                "  `license` varchar(20) NOT NULL,\n" +
+                "  `registrationnumber` varchar(20) NOT NULL,\n" +
                 "  `model` varchar(45) NOT NULL,\n" +
                 "  `brand` varchar(45) NOT NULL,\n" +
-                "  `price` decimal(20,0) NOT NULL,\n" +
+                "  `baseprice` decimal(20,0) NOT NULL,\n" +
                 "  `capacity` int NOT NULL,\n" +
-                "  PRIMARY KEY (`license`),\n" +
-                "  UNIQUE KEY `license_UNIQUE` (`license`)\n" +
+                "  PRIMARY KEY (`registrationnumber`),\n" +
+                "  UNIQUE KEY `registrationnumber_UNIQUE` (`registrationnumber`)\n" +
                 ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;", "motor_home created."));
+
         System.out.println(createTables(DBManager.getConnection(), "CREATE TABLE IF NOT EXISTS `customer` (\n" +
-                "  `id` int NOT NULL AUTO_INCREMENT,\n" +
-                "  `first_name` varchar(45) NOT NULL,\n" +
-                "  `last_name` varchar(45) NOT NULL,\n" +
+                "  `customerid` int NOT NULL AUTO_INCREMENT,\n" +
+                "  `firstname` varchar(45) NOT NULL,\n" +
+                "  `lastname` varchar(45) NOT NULL,\n" +
                 "  `email` varchar(45) NOT NULL,\n" +
-                "  `phone` int NOT NULL,\n" +
+                "  `phone` varchar(20) NOT NULL,\n" +
                 "  `address` varchar(45) NOT NULL,\n" +
-                "  PRIMARY KEY (`id`),\n" +
-                "  UNIQUE KEY `id_UNIQUE` (`id`)\n" +
+                "  PRIMARY KEY (`customerid`),\n" +
+                "  UNIQUE KEY `id_UNIQUE` (`customerid`)\n" +
                 ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;", "Customer created"));
+
         System.out.println(createTables(DBManager.getConnection(), "CREATE TABLE IF NOT EXISTS `rental_period` (\n" +
                 "  `id` int NOT NULL,\n" +
-                "  `customer` int NOT NULL,\n" +
-                "  `motor_home` varchar(20) NOT NULL,\n" +
-                "  `start_date` date NOT NULL,\n" +
-                "  `end_date` date NOT NULL,\n" +
-                "  `rental_period` varchar(45) NOT NULL,\n" +
+                "  `customerid` int NOT NULL,\n" +
+                "  `registrationnumber` varchar(20) NOT NULL,\n" +
+                "  `startdate` date NOT NULL,\n" +
+                "  `enddate` date NOT NULL,\n" +
                 "  PRIMARY KEY (`id`),\n" +
-                "  KEY `customer_idx` (`customer`),\n" +
-                "  KEY `motor_home_idx` (`motor_home`),\n" +
-                "  CONSTRAINT `customer` FOREIGN KEY (`customer`) REFERENCES `customer` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,\n" +
-                "  CONSTRAINT `motor_home` FOREIGN KEY (`motor_home`) REFERENCES `motor_home` (`license`) ON DELETE CASCADE ON UPDATE CASCADE\n" +
+                "  KEY `customer_idx` (`customerid`),\n" +
+                "  KEY `motor_home_idx` (`registrationnumber`),\n" +
+                "  CONSTRAINT `customerid` FOREIGN KEY (`customerid`) REFERENCES `customer` (`customerid`) ON DELETE CASCADE ON UPDATE CASCADE,\n" +
+                "  CONSTRAINT `registrationnumber` FOREIGN KEY (`registrationnumber`) REFERENCES `motor_home` (`registrationnumber`) ON DELETE CASCADE ON UPDATE CASCADE\n" +
                 ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;", "rental period created"));
     }
 
@@ -62,7 +64,7 @@ public class DBInstantiator {
 
             //connection.close();
         } catch (SQLException e) {
-            //e.printStackTrace();
+            e.printStackTrace();
             System.out.println(e.getErrorCode());
             System.out.println(e.getSQLState());
             if (e instanceof SQLIntegrityConstraintViolationException) {

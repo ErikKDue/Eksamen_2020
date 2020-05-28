@@ -33,6 +33,7 @@ public class DBManager {
             connection = DriverManager.getConnection(url,user, password);
         }  catch (SQLSyntaxErrorException e) {
             System.out.println(e.getErrorCode());
+            e.printStackTrace();
             DBInstantiator.createSchema();
             //return getConnection();
         }  catch (SQLException e) {
