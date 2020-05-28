@@ -1,8 +1,7 @@
-package model;
+package dat19d.group.six.motorhomerental.model;
 
 
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDate;
 
