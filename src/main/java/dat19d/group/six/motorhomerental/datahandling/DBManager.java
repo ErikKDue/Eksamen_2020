@@ -1,6 +1,8 @@
 package dat19d.group.six.motorhomerental.datahandling;
 
 
+import datahandling.DBInstantiator;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;

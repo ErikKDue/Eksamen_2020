@@ -1,7 +1,7 @@
 package datahandling.consumers;
 
 import datahandling.GenericMapper;
-import model.IStoreable;
+import dat19d.group.six.motorhomerental.model.IStoreable;
 
 import java.util.function.Consumer;
 

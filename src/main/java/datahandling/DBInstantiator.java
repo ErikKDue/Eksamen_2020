@@ -1,6 +1,7 @@
 package datahandling;
 
-import model.IStoreable;
+import dat19d.group.six.motorhomerental.datahandling.DBManager;
+import dat19d.group.six.motorhomerental.model.IStoreable;
 
 import java.sql.*;
 

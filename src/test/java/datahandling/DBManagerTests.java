@@ -1,5 +1,6 @@
 package datahandling;
 
+import dat19d.group.six.motorhomerental.datahandling.DBManager;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 

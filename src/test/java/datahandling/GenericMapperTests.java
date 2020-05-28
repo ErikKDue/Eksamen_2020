@@ -2,9 +2,9 @@ package datahandling;
 
 import datahandling.consumers.ConsumerGenerator;
 import datahandling.consumers.StoreableConsumer;
-import model.Customer;
-import model.MotorHome;
-import model.RentalPeriod;
+import dat19d.group.six.motorhomerental.model.Customer;
+import dat19d.group.six.motorhomerental.model.MotorHome;
+import dat19d.group.six.motorhomerental.model.RentalPeriod;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
