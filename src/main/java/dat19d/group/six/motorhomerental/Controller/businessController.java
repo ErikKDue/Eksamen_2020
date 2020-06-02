@@ -2,6 +2,8 @@ package dat19d.group.six.motorhomerental.Controller;
 
 
 import dat19d.group.six.motorhomerental.model.Customer;
+import datahandling.consumers.ConsumerGenerator;
+import datahandling.consumers.StoreableConsumer;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,8 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class businessController {
-
-    CustomerMapper customers = new CustomerMapper();
 
     @GetMapping("/")
     public String index(Model model)
@@ -44,12 +44,14 @@ public class businessController {
     {
         String fn = request.getParameter("firstName");
         String ln = request.getParameter("lastName");
-        String adress = request.getParameter("adress");
+        String address = request.getParameter("address");
         String phone = request.getParameter("phone");
         String email = request.getParameter("email");
 
-        Customer c = new Customer(fn, ln, adress, phone, email);
-        customers.opret(c);
+        Customer c = new Customer(fn, ln, address, phone, email);
+
+        StoreableConsumer createCustomer = ConsumerGenerator.getConsumer(c, ConsumerGenerator.CREATE);
+        createCustomer.execute();
 
         return "redirect:/";
     }
