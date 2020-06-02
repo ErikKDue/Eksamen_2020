@@ -1,11 +1,12 @@
 <!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="EksamensStyle.css">
 
 
-    <title>Rental</title>
+    <title>Opret kunde</title>
 </head>
 <body>
 
@@ -14,6 +15,20 @@
     <a href="/book">Book</a>
     <a href="/returner">Returner</a>
     <a href="/opret">Opret kunde</a>
+</div>
+
+<div>
+    <h1>Opret Kunde</h1>
+    <form action="#" th:action="@{/opret}" th:object="${customer}" method="post">
+        <p>Fornavn: <input type="text" th:field="*{firstName}"/></p>
+        <p>Efternavn: <input type="text" th:field="*{lastName}"/></p>
+        <p>Addresse: <input type="text" th:field="*{address}"/></p>
+        <p>Telefon nummer: <input type="text" th:field="*{phone}"/></p>
+        <p>Email: <input type="text" th:field="*{email}"/></p>
+
+        <input type="submit" value="Create" />
+
+    </form>
 </div>
 
 

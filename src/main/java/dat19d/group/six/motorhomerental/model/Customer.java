@@ -18,6 +18,15 @@ public class Customer implements IStoreable{
 
     public Customer(){}
 
+    public Customer(String firstName, String lastName, String address, String phone, String email)
+    {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.address = address;
+        this.phone = phone;
+        this.email = email;
+    }
+
     public Customer(int ID, String firstName, String lastName, String address, String phone, String email){
         this.customerID = ID;
         this.firstName = firstName;
@@ -31,4 +40,16 @@ public class Customer implements IStoreable{
     public String getType() {
         return "customer";
     }
+
+    public String getFirstName() {return firstName;}
+
+    public String getLastName() {return lastName;}
+
+    public String getAddress() {return address;}
+
+    public String getPhone() {return phone;}
+
+    public String getEmail() {return email;}
+
+
 }
