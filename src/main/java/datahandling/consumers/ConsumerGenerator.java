@@ -18,4 +18,12 @@ public class ConsumerGenerator {
         if(type.equals(UPDATE)) return new UpdateConsumer(object);
         return null;
     }
+
+    //method that creates a consumer and runs it, just for convenience.
+    public static IStoreable getAndRunConsumer(IStoreable object, String type){
+        StoreableConsumer consumer = getConsumer(object, type);
+        consumer.execute();
+        if(type.equals(READ)) return consumer.getResult();
+        return null;
+    }
 }

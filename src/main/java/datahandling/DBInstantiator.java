@@ -11,6 +11,7 @@ public class DBInstantiator {
         //gets called if the DBManager can't find the right schema
         System.out.println("Trying to create schema.");
         System.out.println(createTables(DBManager.getBasicConnection(), "CREATE DATABASE `nordicmotorhome_g6` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;\n", "Schema created."));
+       //System.out.println(createTables(DBManager.getBasicConnection(), "CREATE DATABASE `nordicmotorhome_g6`;\n", "Schema created."));
         System.out.println(createTables(DBManager.getConnection(), "\n" +
                 "CREATE TABLE IF NOT EXISTS `unavailability` (\n" +
                 "  `date` date NOT NULL,\n" +

@@ -1,8 +1,10 @@
 package dat19d.group.six.motorhomerental.model;
 
 import annotations.StoreableAttribute;
+import annotations.StoreablePKey;
 
 public class Customer implements IStoreable{
+    @StoreablePKey
     @StoreableAttribute
     public int customerID;
     @StoreableAttribute
@@ -17,6 +19,10 @@ public class Customer implements IStoreable{
     public String email; //maybe needs to be its own class to check for being a valid email?
 
     public Customer(){}
+
+    public Customer(int ID){
+        this.customerID = ID;
+    }
 
     public Customer(int ID, String firstName, String lastName, String address, String phone, String email){
         this.customerID = ID;

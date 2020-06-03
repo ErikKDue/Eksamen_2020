@@ -1,6 +1,7 @@
 package dat19d.group.six.motorhomerental.model;
 
 import annotations.StoreableAttribute;
+import annotations.StoreablePKey;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -8,6 +9,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class RentalPeriod implements IStoreable{
+    @StoreablePKey
     @StoreableAttribute
     int ID;
     @StoreableAttribute
@@ -60,6 +62,18 @@ public class RentalPeriod implements IStoreable{
         this.dropoffPointDistance = dropoffPointDistance;
         this.maxKMBeforeSurcharge = dateList.size()*400;
         this.totalExpectedPrice = this.calculateExpectedPrice();
+    }
+
+    public RentalPeriod(int ID, int customerID, String registrationNumber, LocalDate startDate, LocalDate endDate){
+        this.ID = ID;
+        this.customerID = customerID;
+        this.registrationNumber = registrationNumber;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.dateList = startDate.datesUntil(endDate).collect(Collectors.toList());
+        this.dateList.add(endDate);
+        this.maxKMBeforeSurcharge = dateList.size()*400;
+
     }
 
     public double calculateExpectedPrice(){

@@ -1,11 +1,13 @@
 package datahandling;
 
+import dat19d.group.six.motorhomerental.model.IStoreable;
 import datahandling.consumers.ConsumerGenerator;
 import datahandling.consumers.StoreableConsumer;
 import dat19d.group.six.motorhomerental.model.Customer;
 import dat19d.group.six.motorhomerental.model.MotorHome;
 import dat19d.group.six.motorhomerental.model.RentalPeriod;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.autoconfigure.mongo.embedded.EmbeddedMongoProperties;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.sql.Connection;
@@ -51,10 +53,67 @@ public class GenericMapperTests {
         createTestMotorHome.execute();
         createTestRentalPeriod.execute();
 
-        //StoreableConsumer deleteTestObject = ConsumerGenerator.getConsumer(testCustomer, ConsumerGenerator.DELETE);
-        //deleteTestObject.execute();
+        StoreableConsumer deleteTestRentalPeriod = ConsumerGenerator.getConsumer(testRentalPeriod, ConsumerGenerator.DELETE);
+        deleteTestRentalPeriod.execute();
+        StoreableConsumer deleteTestMotorHome = ConsumerGenerator.getConsumer(testMotorHome, ConsumerGenerator.DELETE);
+        deleteTestMotorHome.execute();
+        StoreableConsumer deleteTestCustomer = ConsumerGenerator.getConsumer(testCustomer, ConsumerGenerator.DELETE);
+        deleteTestCustomer.execute();
     }
 
+    @Test
+    public void When_Creating_An_Object_In_DB_Update_Changes_It(){
+        Customer testCustomer = new Customer(27, "boop", "barp", "Barkyroad 7", "555-49141399", "boopbarp@email.com");
+        Customer testCustomer2 = new Customer(27, "booooooooooooo", "barp", "Duemosevej", "555-49141399", "boopbarp@email.com");
+
+
+        StoreableConsumer createTestCustomer = ConsumerGenerator.getConsumer(testCustomer, ConsumerGenerator.CREATE);
+        createTestCustomer.execute();
+
+        StoreableConsumer updateTestCustomer = ConsumerGenerator.getConsumer(testCustomer2, ConsumerGenerator.UPDATE);
+        updateTestCustomer.execute();
+
+        Customer readCustomer = (Customer)ConsumerGenerator.getAndRunConsumer(new Customer(27), ConsumerGenerator.READ);
+
+        StoreableConsumer deleteTestCustomer = ConsumerGenerator.getConsumer(testCustomer, ConsumerGenerator.DELETE);
+        deleteTestCustomer.execute();
+    }
+
+    @Test
+    public void Reading_Object_From_Primary_Key_Works(){
+        Customer testCustomer = new Customer(27, "boop", "barp", "Barkyroad 7", "555-49141399", "boopbarp@email.com");
+
+
+
+        StoreableConsumer createTestCustomer = ConsumerGenerator.getConsumer(testCustomer, ConsumerGenerator.CREATE);
+        createTestCustomer.execute();
+
+
+        StoreableConsumer readTestCustomer = ConsumerGenerator.getConsumer(testCustomer, ConsumerGenerator.READ);
+        readTestCustomer.execute();
+        IStoreable result = readTestCustomer.getResult();
+        IStoreable result2 = ConsumerGenerator.getAndRunConsumer(testCustomer, ConsumerGenerator.READ);
+        //needs to read it in here
+
+        StoreableConsumer deleteTestCustomer = ConsumerGenerator.getConsumer(testCustomer, ConsumerGenerator.DELETE);
+        deleteTestCustomer.execute();
+
+    }
+
+
+    @Test
+    public void Creating_And_Reading_MotorHome(){
+        MotorHome inputMotorHome = new MotorHome("BAPARALARP", "COOLCAR", "Super Prototype", 3, 4000);
+        ConsumerGenerator.getAndRunConsumer(inputMotorHome, ConsumerGenerator.CREATE);
+
+        MotorHome outputMotorHome = (MotorHome)ConsumerGenerator.getAndRunConsumer(new MotorHome("BAPARALARP"), ConsumerGenerator.READ);
+
+
+        assertEquals(inputMotorHome.getCapacity(), outputMotorHome.getCapacity());
+        assertEquals(inputMotorHome.getModel(), outputMotorHome.getModel());
+
+        ConsumerGenerator.getAndRunConsumer(new MotorHome("BAPARALARP"), ConsumerGenerator.DELETE);
+    }
     /* //I don't think you can separate create rental period from creating the other objects since ti uses them as foreign keys.
     @Test
     public void Create_Rental_Period(){

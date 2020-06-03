@@ -12,9 +12,7 @@ public class ReadConsumer implements StoreableConsumer {
     private void setList(IStoreable result){
         this.result = result;
     }
-    public IStoreable getResult(){
-        return result;
-    }
+    public IStoreable getResult(){ return result; }
     public ReadConsumer(IStoreable object) {
         this.object = object;
     }
@@ -22,7 +20,7 @@ public class ReadConsumer implements StoreableConsumer {
     public boolean execute() {
         readStoreableInDB.accept(object);
 
-        return true;
+ return true;
     }
     @Override
     public IStoreable getStorable() {
