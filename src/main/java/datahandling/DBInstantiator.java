@@ -7,6 +7,11 @@ import java.sql.*;
 
 public class DBInstantiator {
 
+    public static void main(String[] args)
+    {
+        createSchema();
+    }
+
     public static void createSchema() {
         //gets called if the DBManager can't find the right schema
         System.out.println("Trying to create schema.");
