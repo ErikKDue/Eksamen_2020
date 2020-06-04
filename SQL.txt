@@ -1,0 +1,42 @@
+CREATE DATABASE `nordicmotorhome_g6` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+
+CREATE TABLE `customer` (
+  `customerid` int NOT NULL AUTO_INCREMENT,
+  `firstname` varchar(45) NOT NULL,
+  `lastname` varchar(45) NOT NULL,
+  `email` varchar(45) NOT NULL,
+  `phone` varchar(20) NOT NULL,
+  `address` varchar(45) NOT NULL,
+  PRIMARY KEY (`customerid`),
+  UNIQUE KEY `id_UNIQUE` (`customerid`)
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `motor_home` (
+  `registrationnumber` varchar(20) NOT NULL,
+  `model` varchar(45) NOT NULL,
+  `brand` varchar(45) NOT NULL,
+  `baseprice` decimal(20,0) NOT NULL,
+  `capacity` int NOT NULL,
+  PRIMARY KEY (`registrationnumber`),
+  UNIQUE KEY `registrationnumber_UNIQUE` (`registrationnumber`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `rental_period` (
+  `id` int NOT NULL,
+  `customerid` int NOT NULL,
+  `registrationnumber` varchar(20) NOT NULL,
+  `startdate` date NOT NULL,
+  `enddate` date NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `customer_idx` (`customerid`),
+  KEY `motor_home_idx` (`registrationnumber`),
+  CONSTRAINT `customerid` FOREIGN KEY (`customerid`) REFERENCES `customer` (`customerid`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `registrationnumber` FOREIGN KEY (`registrationnumber`) REFERENCES `motor_home` (`registrationnumber`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `unavailability` (
+  `date` date NOT NULL,
+  `motor_home_id` varchar(20) NOT NULL,
+  `status_id` int NOT NULL,
+  PRIMARY KEY (`date`,`motor_home_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
